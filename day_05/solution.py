@@ -84,4 +84,5 @@ def solution2():
 
 
 if __name__ == "__main__":
+    solution()
     solution2()
