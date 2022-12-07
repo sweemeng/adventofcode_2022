@@ -16,7 +16,6 @@ def marker_finder(line, length=4):
         if stop:
             break
 
-
     return buffer, count
 
 
