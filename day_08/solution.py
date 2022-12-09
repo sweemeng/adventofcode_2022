@@ -19,7 +19,6 @@ def generate_index(path):
                 grid[(row, col)] = value
             row += 1
     # row only because we can assume square
-    # grid exist for debugging purpose. 
     return row,row_index, col_index, grid
 
 
@@ -32,11 +31,12 @@ def viewable(items):
 
 
 def viewable_two(items, current_height):
+    output = []
     for row, col, item in items:
-        yield row, col
+        output.append((row, col))
         if current_height <= item:
             break
-
+    return output
 
 
 def solution(path):
@@ -61,34 +61,32 @@ def solution(path):
 def solution_two(path):
     rows, row_index, col_index, grid = generate_index(path)
     scores = defaultdict(lambda : 1)
+    maximum = 0
     for points in product(range(rows), range(rows)):
         row, col = points
+        # Direction doesn't really matter, this is a square anyway.
+        left, right, top, down = segment_maker(row, col, row_index, col_index)
 
-        row_segment_one, row_segment_two, col_segment_one, col_segment_two = segment_maker(row, col, row_index, col_index)
-
-        left_score = len(list(viewable_two(reversed(row_segment_one), grid[points])))
+        left_score = len(viewable_two(reversed(left), grid[points]))
+        score = scores[points]
         if left_score:
-            scores[points] = scores[points] * left_score
+            score = score * left_score
 
-        right_score = len(list(viewable_two(row_segment_two, grid[points])))
+        right_score = len(viewable_two(right, grid[points]))
         if right_score:
-            scores[points] = scores[points] * right_score
+            score = score * right_score
 
-        top_score = len(list(viewable_two(reversed(col_segment_one), grid[points])))
+        top_score = len(viewable_two(reversed(top), grid[points]))
         if top_score:
-            scores[points] = scores[points] * top_score
+            score = score * top_score
 
-        bottom_score = len(list(viewable_two(col_segment_two, grid[points])))
+        bottom_score = len(viewable_two(down, grid[points]))
         if bottom_score:
-            scores[points] = scores[points] * bottom_score
+            score = score * bottom_score
 
-    maximum = 0
-    max_key = None
-    for key in scores:
-        value = scores[key]
-        if value > maximum:
-            max_key = key
-            maximum = value
+        scores[points] = score
+        if score > maximum:
+            maximum=score
 
     print(maximum)
 
