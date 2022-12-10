@@ -40,9 +40,10 @@ def solution(path):
 
 def make_sprites(x):
     sprites = ["."] * 40
-    if x-1 >= 0:
+    if x-1 > -1:
         sprites[x - 1] = "#"
-    sprites[x] = "#"
+    if -1 < x < 40:
+        sprites[x] = "#"
     if x+1 < 40:
         sprites[x + 1] = "#"
     return sprites
@@ -65,9 +66,9 @@ def solution_two(path):
         op = ops[ptr]
         op = op.strip()
         sprites = make_sprites(x)
-        if cycle == 40:
-            pixels = pixels + "\n"
-            cycle = 0
+        print("".join(sprites))
+        print(cycle)
+        print(sprites[cycle])
         pixels = pixels + sprites[cycle]
         if temp:
             x += temp
@@ -80,6 +81,10 @@ def solution_two(path):
                 _, temp_ = op.split(" ")
                 temp = int(temp_)
         cycle += 1
+        if cycle == 40:
+            pixels = pixels + "\n"
+            cycle = 0
+
 
     # Not RBPARAGP
     print(pixels)
