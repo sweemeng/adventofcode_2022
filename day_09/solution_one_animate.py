@@ -89,7 +89,7 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode(window_size)
     done = False
-    ropes = Rope("input_test_big",size=9, start=(20,20))
+    ropes = Rope("input_actual",size=9, start=(0,0))
     knot = ropes.travel()
     while not done:
         for event in pygame.event.get():
