@@ -66,9 +66,7 @@ def solution_two(path):
         op = ops[ptr]
         op = op.strip()
         sprites = make_sprites(x)
-        print("".join(sprites))
-        print(cycle)
-        print(sprites[cycle])
+
         pixels = pixels + sprites[cycle]
         if temp:
             x += temp
