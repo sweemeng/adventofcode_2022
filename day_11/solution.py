@@ -165,6 +165,9 @@ def play_no_worry(monkeys):
     num_monkeys = len(monkeys)
     prods = 1
     for i in range(num_monkeys):
+        # I steal the code from. But essentially, however you add/mul the number.
+        # When you mod it, you get the same value. So just make sure that the test number
+        # cover the number you will be testing. prods will cap the number. 
         prods *= monkeys[i].conditions
 
     for i in range(num_monkeys):
